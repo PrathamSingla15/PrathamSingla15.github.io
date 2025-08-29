@@ -1,0 +1,179 @@
+/* Root Variables */
+:root {
+    --primary: #2d3436; /* Dark gray for primary text */
+    --secondary: #636e72; /* Light gray for secondary text */
+    --accent: #0984e3; /* Muted blue for accents */
+    --background: #ffffff; /* Light background */
+    --border: #eaeaea; /* Subtle border color */
+}
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--primary);
+    background-color: var(--background);
+    padding: 2rem 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+}
+
+p {
+    font-size: 1rem;
+    color: var(--secondary);
+    margin-top: 0.5rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+.contact-item svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    fill: var(--secondary);
+}
+
+/* Links */
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0077cc; /* Slightly darker accent on hover */
+}
+
+/* Sections */
+.section {
+    margin: 3rem 0;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+    color: var(--primary);
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 2px;
+    background-color: var(--accent);
+    margin-top: 0.5rem;
+}
+
+.flex-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.date {
+    color: var(--secondary);
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+ul {
+    padding-left: 1.25rem;
+    margin: 0.5rem 0;
+}
+
+li {
+    margin: 0.5rem 0;
+    line-height: 1.4;
+}
+
+.publication-links {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.publication-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.publication-links a svg {
+    width: 14px;
+    height: 14px;
+    fill: var(--accent);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .flex-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary: #ffffff;
+        --secondary: #cccccc;
+        --accent: #00bcd4;
+        --background: #121212;
+        --border: #333333;
+    }
+
+    a:hover {
+        color: #00a1c6; /* Slightly lighter accent on hover in dark mode */
+    }
+}
