@@ -1,211 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pratham Singla — Portfolio</title>
-  <meta name="description" content="Pratham Singla — AI/ML Researcher (LLMs, VLMs & agents) at IIT Roorkee. Three design directions for one portfolio." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..800&family=Archivo:wght@400..900&family=Hanken+Grotesk:wght@400..800&family=JetBrains+Mono:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root{
-      --bg:#0d0e11; --bg-2:#121419; --panel:#16181e;
-      --ink:#ECEAE3; --ink-soft:#A7A8AE; --ink-faint:#6A6C75;
-      --hair:rgba(255,255,255,.10); --hair-2:rgba(255,255,255,.18);
-      --ease:cubic-bezier(.2,.7,.2,1);
-    }
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:"Hanken Grotesk",system-ui,sans-serif;
-      background:var(--bg); color:var(--ink);
-      min-height:100svh; line-height:1.55; overflow-x:hidden;
-      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-      position:relative;
-    }
-    /* atmospheric backdrop */
-    body::before{
-      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
-      background:
-        radial-gradient(60vw 60vw at 12% -8%, rgba(123,45,38,.16), transparent 60%),
-        radial-gradient(55vw 55vw at 100% 0%, rgba(199,249,75,.07), transparent 55%),
-        radial-gradient(70vw 60vw at 80% 110%, rgba(31,26,255,.10), transparent 60%);
-    }
-    body::after{
-      content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.045;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-    .wrap{position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:clamp(2rem,5vw,4.5rem) clamp(1.1rem,4vw,2.5rem) 3rem;}
-
-    /* ---------- header ---------- */
-    header{display:flex; flex-direction:column; gap:1.4rem; margin-bottom:clamp(2.2rem,5vw,3.6rem);}
-    .topline{display:flex; align-items:center; gap:1rem;}
-    .avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;border:1px solid var(--hair-2);
-      filter:grayscale(.2) contrast(1.02); flex:none;}
-    .kicker{font-family:"JetBrains Mono",monospace; font-size:.72rem; letter-spacing:.28em;
-      text-transform:uppercase; color:var(--ink-faint);}
-    .kicker b{color:var(--ink-soft); font-weight:500;}
-    h1{font-family:"Fraunces",serif; font-weight:430; font-optical-sizing:auto;
-      font-size:clamp(2.3rem,6.4vw,4.4rem); line-height:1.02; letter-spacing:-.02em; max-width:18ch;}
-    h1 em{font-style:italic; color:#e9c9b6;}
-    .sub{max-width:60ch; color:var(--ink-soft); font-size:clamp(1rem,1.6vw,1.12rem);}
-    .sub b{color:var(--ink); font-weight:600;}
-
-    /* ---------- cards ---------- */
-    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1rem,2.2vw,1.6rem);}
-    @media (max-width:880px){ .grid{grid-template-columns:1fr; max-width:520px;} }
-
-    .card{position:relative; display:flex; flex-direction:column; justify-content:space-between;
-      min-height:clamp(320px,42vw,440px); border-radius:18px; overflow:hidden; text-decoration:none;
-      border:1px solid var(--hair); isolation:isolate;
-      transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .5s var(--ease);
-      transform:translateY(18px); opacity:0;}
-    .card .pad{padding:clamp(1.3rem,2.4vw,1.9rem); display:flex; flex-direction:column; gap:.7rem; height:100%;}
-    .idx{font-family:"JetBrains Mono",monospace; font-size:.72rem; letter-spacing:.2em; opacity:.8;}
-    .ctitle{font-size:clamp(1.8rem,3.4vw,2.5rem); line-height:.96; letter-spacing:-.01em;}
-    .desc{font-size:.95rem; margin-top:auto;}
-    .specs{font-family:"JetBrains Mono",monospace; font-size:.68rem; letter-spacing:.04em; opacity:.72;
-      display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.2rem;}
-    .specs span{border:1px solid currentColor; border-radius:999px; padding:.12rem .5rem; opacity:.9;}
-    .enter{display:inline-flex; align-items:center; gap:.5em; font-family:"JetBrains Mono",monospace;
-      font-size:.82rem; letter-spacing:.06em; font-weight:700; margin-top:.9rem;}
-    .enter .arrow{transition:transform .45s var(--ease);}
-    .card:hover{transform:translateY(-6px); box-shadow:0 26px 60px -24px rgba(0,0,0,.7);}
-    .card:hover .enter .arrow{transform:translateX(7px);}
-    .card:focus-visible{outline:3px solid #fff; outline-offset:3px;}
-    .sheen{position:absolute; inset:0; z-index:-1; opacity:0; transition:opacity .5s var(--ease);
-      background:radial-gradient(120% 80% at 50% -10%, rgba(255,255,255,.16), transparent 60%);}
-    .card:hover .sheen{opacity:1;}
-
-    /* Editorial Ink */
-    .ed{background:#FAF7F0; color:#1A1714; border-color:#E4DAC6;}
-    .ed .idx{color:#7B2D26;}
-    .ed .ctitle{font-family:"Fraunces",serif; font-weight:500; font-style:italic;}
-    .ed .desc{color:#4A423A;}
-    .ed .rule{height:2px;width:54px;background:#7B2D26;border-radius:2px;}
-    .ed .enter{color:#7B2D26;}
-    .ed .specs{color:#756A5B;}
-
-    /* Midnight Lab */
-    .mid{background:#0A0B0D; color:#F3F2EE; border-color:rgba(199,249,75,.22);}
-    .mid::before{content:"";position:absolute;inset:0;z-index:-1;
-      background:radial-gradient(80% 60% at 80% 0,rgba(199,249,75,.12),transparent 55%),
-                 radial-gradient(70% 70% at 0 100%,rgba(80,120,220,.14),transparent 60%);}
-    .mid .idx{color:#C7F94B;}
-    .mid .ctitle{font-family:"Fraunces",serif; font-weight:430;}
-    .mid .ctitle em{font-style:italic; color:#C7F94B; text-shadow:0 0 22px rgba(199,249,75,.55);}
-    .mid .desc{color:#C3C5CC;}
-    .mid .dot{width:9px;height:9px;border-radius:50%;background:#C7F94B;box-shadow:0 0 14px #C7F94B;display:inline-block;}
-    .mid .enter{color:#C7F94B;}
-    .mid .specs{color:#7E828C;}
-
-    /* Swiss Brutalist */
-    .sw{background:#F4F3EF; color:#0B0B0B; border-color:#0B0B0B;}
-    .sw .pad{position:relative;}
-    .sw .idx{color:#FF2D16;}
-    .sw .ctitle{font-family:"Archivo",sans-serif; font-weight:900; text-transform:uppercase;
-      font-stretch:125%; letter-spacing:-.02em; line-height:.86;}
-    .sw .bar{height:10px;background:#FF2D16;width:70%;}
-    .sw .desc{color:#2A2A28; font-family:"Archivo",sans-serif;}
-    .sw .enter{color:#0B0B0B;}
-    .sw:hover{background:#FF2D16; color:#fff; border-color:#FF2D16;}
-    .sw:hover .idx,.sw:hover .enter{color:#fff;}
-    .sw:hover .desc{color:rgba(255,255,255,.9);}
-    .sw:hover .bar{background:#0B0B0B;}
-    .sw .specs{color:#6B6B66;}
-
-    /* ---------- footer ---------- */
-    footer{margin-top:clamp(2.4rem,5vw,3.8rem); padding-top:1.4rem; border-top:1px solid var(--hair);
-      display:flex; flex-wrap:wrap; gap:.4rem 1.4rem; align-items:center; justify-content:space-between;}
-    .links{display:flex; flex-wrap:wrap; gap:.3rem 1.2rem;}
-    .links a{color:var(--ink-soft); text-decoration:none; font-size:.9rem; display:inline-flex; align-items:center; gap:.4em;
-      transition:color .25s ease;}
-    .links a:hover{color:var(--ink);}
-    .links svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7;}
-    .resume{font-family:"JetBrains Mono",monospace; font-size:.78rem; letter-spacing:.05em; color:var(--ink);
-      border:1px solid var(--hair-2); border-radius:999px; padding:.5rem .95rem; text-decoration:none;
-      display:inline-flex; align-items:center; gap:.5em; transition:background .3s ease, border-color .3s ease;}
-    .resume:hover{background:#fff; color:#0d0e11; border-color:#fff;}
-    .foot-note{font-family:"IBM Plex Mono",monospace; color:var(--ink-faint); font-size:.72rem; letter-spacing:.04em;}
-
-    /* ---------- entrance ---------- */
-    @keyframes rise{to{transform:translateY(0);opacity:1;}}
-    @keyframes fade{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-    header>*{animation:fade .8s var(--ease) both;}
-    .topline{animation-delay:.05s} h1{animation-delay:.16s} .sub{animation-delay:.28s}
-    .card{animation:rise .8s var(--ease) forwards;}
-    .ed{animation-delay:.42s} .mid{animation-delay:.54s} .sw{animation-delay:.66s}
-    footer{animation:fade .8s var(--ease) .8s both;}
-
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-      *{animation:none!important; transition:none!important; transform:none!important;}
-      .card{opacity:1!important;}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratham Singla - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="topline">
-        <img class="avatar" src="/profile.png" alt="Pratham Singla" />
-        <p class="kicker"><b>Pratham Singla</b> &nbsp;·&nbsp; Portfolio 2026</p>
-      </div>
-      <h1>One researcher, <em>three</em> typographic worlds.</h1>
-      <p class="sub"><b>AI/ML researcher — LLMs, VLMs &amp; agents at IIT Roorkee.</b> I rebuilt my portfolio in three distinct design directions. Step into each and see which one fits.</p>
-    </header>
+    <header style="display: flex; align-items: center; justify-content: space-between;">
+        <!-- Header Content -->
+        <div style="flex: 1;">
+          <h1>Pratham Singla</h1>
+          <p>B.Tech Student at IIT Roorkee | AI/ML Research</p>
 
-    <main class="grid">
-      <!-- Editorial Ink -->
-      <a class="card ed" href="/editorial/" aria-label="Open the Editorial Ink version">
-        <span class="sheen"></span>
-        <div class="pad">
-          <span class="idx">01 / EDITORIAL INK</span>
-          <span class="ctitle">Pratham Singla</span>
-          <span class="rule"></span>
-          <span class="desc">A typeset research journal — warm paper, deep ink, oxblood rules and oversized serif numerals.</span>
-          <span class="specs"><span>Fraunces</span><span>Newsreader</span><span>Light</span></span>
-          <span class="enter">Enter <span class="arrow">→</span></span>
+          <div class="contact-info">
+              <div class="contact-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                  <a href="mailto:pratham_s@me.iitr.ac.in">pratham_s@me.iitr.ac.in</a>
+              </div>
+              <div class="contact-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                  </svg>
+                  <a href="https://github.com/PrathamSingla15" target="_blank">PrathamSingla15</a>
+              </div>
+              <div class="contact-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect x="2" y="9" width="4" height="12"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                  <a href="https://www.linkedin.com/in/pratham-singla-a132732a7/" target="_blank">Pratham Singla</a>
+              </div>
+              <div class="contact-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                      <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                      <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                      <path d="M12 14v7"></path>
+                  </svg>
+                  <a href="https://scholar.google.com/citations?user=6tyILRMAAAAJ&hl=en" target="_blank">Google Scholar</a>
+              </div>
+              <div class="contact-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  <span>IIT Roorkee, Uttarakhand, India - 247667</span>
+              </div>
+          </div>
         </div>
-      </a>
 
-      <!-- Midnight Lab -->
-      <a class="card mid" href="/midnight/" aria-label="Open the Midnight Lab version">
-        <span class="sheen"></span>
-        <div class="pad">
-          <span class="idx"><span class="dot"></span> 02 / MIDNIGHT LAB</span>
-          <span class="ctitle">Pratham <em>Singla</em></span>
-          <span class="desc">Near-black canvas, drifting gradient-mesh, and one electric-lime glow on every interaction.</span>
-          <span class="specs"><span>Fraunces</span><span>Hanken</span><span>JetBrains Mono</span><span>Dark</span></span>
-          <span class="enter">Enter <span class="arrow">→</span></span>
+        <!-- Image Section -->
+        <div style="flex: 1; text-align: center;">
+          <img
+            src="profile.png"
+            alt="Pratham Singla Profile Picture"
+            style="border-radius: 50%; width: 150px; height: 150px; object-fit: cover;"
+          />
         </div>
-      </a>
+      </header>
 
-      <!-- Swiss Brutalist -->
-      <a class="card sw" href="/swiss/" aria-label="Open the Swiss Brutalist version">
-        <span class="sheen"></span>
-        <div class="pad">
-          <span class="idx">03 / SWISS BRUTALIST</span>
-          <span class="ctitle">Pratham<br>Singla</span>
-          <span class="bar"></span>
-          <span class="desc">High-contrast Swiss grid — oversized expanded grotesque, numbered sections, signal-red blocks.</span>
-          <span class="specs"><span>Archivo</span><span>Spline Mono</span><span>Light</span></span>
-          <span class="enter">Enter <span class="arrow">→</span></span>
-        </div>
-      </a>
-    </main>
+  <main class="container">
+      <section class="section" id="education">
+          <h2>Education</h2>
 
-    <footer>
-      <nav class="links" aria-label="Contact">
-        <a href="mailto:pratham_s@me.iitr.ac.in"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
-        <a href="https://github.com/PrathamSingla15" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
-        <a href="https://www.linkedin.com/in/pratham-singla-a132732a7/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-12h4v1.5"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=6tyILRMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 3 2 8.5 12 14l10-5.5L12 3Z"/><path d="M5 11v5c0 1.5 3 3 7 3s7-1.5 7-3v-5"/></svg>Scholar</a>
-      </nav>
-      <a class="resume" href="/Resume_Pratham.pdf" target="_blank" rel="noopener noreferrer">↓ Résumé (PDF)</a>
-    </footer>
-  </div>
+          <div class="education-item">
+              <div class="flex-header">
+                  <h3>IIT Roorkee, Roorkee, India</h3>
+                  <span class="date">2023 - 2027</span>
+              </div>
+              <p><strong>Bachelor of Technology in Mechanical Engineering</strong></p>
+              <p>Current CGPA: <span class="highlight">9.121/10</span></p>
+          </div>
+      </section>
+
+      <section class="section" id="experience">
+          <h2>Experience</h2>
+
+          <div class="experience-item">
+              <div class="flex-header">
+                  <h3>Applied ML Intern at Raeth AI</h3>
+                  <span class="date">February 2026 - May 2026</span>
+              </div>
+              <ul>
+                  <li>Building reinforcement learning environments for finance, designing market simulations and reward structures to train and evaluate trading and decision-making agents.</li>
+              </ul>
+          </div>
+
+          <div class="experience-item">
+              <div class="flex-header">
+                  <h3>AI Intern at Bespoke Labs</h3>
+                  <span class="date">October 2025 - January 2026</span>
+              </div>
+              <ul>
+                  <li>Developed a synthetic data generation pipeline to simulate realistic user activity and interactions, enabling effective testing and validation of a microservices-based social media platform and its inter-service data flow.</li>
+                  <li>Built an end-to-end reward-hacking evaluation pipeline to identify and analyze vulnerabilities in the automated assessment of generated tasks.</li>
+              </ul>
+          </div>
+
+          <div class="experience-item">
+              <div class="flex-header">
+                  <h3>Research Intern at Lossfunk</h3>
+                  <span class="date">December 2024 - September 2025</span>
+              </div>
+              <ul>
+                  <li>Developed a new benchmark for complex visual reasoning, inspired by ZeroBench, featuring an automated question-generation pipeline to evaluate and train vision-language models on GPT-level reasoning tasks.</li>
+                  <li>Contributing to a reinforcement learning-based training framework designed to encourage models to ground their reasoning in visual inputs rather than relying primarily on textual cues.</li>
+              </ul>
+          </div>
+
+          <div class="experience-item">
+              <div class="flex-header">
+                  <h3>Gen AI Intern at Omega Intelligence</h3>
+                  <span class="date">March 2025 - July 2025</span>
+              </div>
+              <ul>
+                  <li>Built DE-VTL, a retrieval framework for RAG: designed an active-learning acquisition function combining diversity, relevance, and uncertainty, and applied LoRA fine-tuning to cut redundancy in retrieved exemplars.</li>
+              </ul>
+          </div>
+
+          <div class="experience-item">
+              <div class="flex-header">
+                  <h3>Research Intern at Boston University</h3>
+                  <span class="date">February 2025 - May 2025</span>
+              </div>
+              <ul>
+                  <li>Investigated self-awareness in LLMs by analyzing alignment between internal reasoning and outputs.</li>
+                  <li>Evaluated SFT, DPO, and GRPO tuned models on tasks involving bias, risk, and reward hacking. Designed experiments to test awareness of learned behaviors and generalization of reasoning across domains.</li>
+              </ul>
+          </div>
+      </section>
+
+      <section class="section" id="publications">
+          <h2>Publications</h2>
+
+          <div class="publication-item">
+              <div class="flex-header">
+                  <h3>Do Vision&ndash;Language Models See or Guess?</h3>
+                  <span class="date">Under Review at EMNLP'26 &middot; Full paper &middot; First author</span>
+              </div>
+              <ul>
+                  <li>Built a 540-image phrasing-controlled benchmark with a no-image ablation to isolate VLMs' reliance on textual priors, and showed GRPO post-training of a small VLM yields consistent gains transferring to held-out OOD sets.</li>
+              </ul>
+              <div class="publication-links">
+                  <a href="https://drive.google.com/file/d/1W9YlNSTI20Ft3k_BdBzBpypP4UotxIYj/view" target="_blank">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                      Paper
+                  </a>
+              </div>
+          </div>
+
+          <div class="publication-item">
+              <div class="flex-header">
+                  <h3>Paradigm Bias in Code Generation: LRLBench</h3>
+                  <span class="date">Under Review at EMNLP'26 &middot; Short paper</span>
+              </div>
+              <ul>
+                  <li>Introduced LRLBench (3K problems with verified iterative/recursive references) exposing a 6.9&ndash;10.1pp recursion deficit in LLMs; GRPO fine-tuning of Qwen3-4B recovered +4.6pp recursive pass@1 at 1.1pp iterative cost.</li>
+              </ul>
+              <div class="publication-links">
+                  <a href="https://drive.google.com/file/d/1imihF5xHyVe4TSz1FYLGke97jD_eA2yq/view" target="_blank">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                      Paper
+                  </a>
+              </div>
+          </div>
+
+          <div class="publication-item">
+              <div class="flex-header">
+                  <h3>Poker Arena</h3>
+                  <span class="date">ICML'26 NeXT Game Workshop</span>
+              </div>
+              <ul>
+                  <li>Built a no-limit Texas Hold'em tournament platform pairing a three-layer memory architecture with a nine-axis cognitive profile to evaluate seven frontier LLMs beyond scalar leaderboards.</li>
+              </ul>
+              <div class="publication-links">
+                  <a href="https://drive.google.com/file/d/1rAL2DTAAELJ4kOOKlM4UKZLoVef1OzoU/view" target="_blank">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                      Paper
+                  </a>
+              </div>
+          </div>
+
+          <div class="publication-item">
+              <div class="flex-header">
+                  <h3>Reflective Self-Awareness and Reasoning Alignment in LLMs</h3>
+                  <span class="date">ACL'26 Findings</span>
+              </div>
+              <ul>
+                  <li>Analyzed self-awareness and reasoning alignment in LRMs, such as DeepSeek-R1, across scenarios. Evaluated the impact of SFT, DPO, and GRPO fine-tuning on model behavior, including bias, risk, and reward hacking.</li>
+              </ul>
+              <div class="publication-links">
+                  <a href="https://arxiv.org/abs/2510.16340" target="_blank">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                      Arxiv
+                  </a>
+              </div>
+          </div>
+
+          <div class="publication-item">
+              <div class="flex-header">
+                  <h3>Give me a hint: Can LLMs take hint to solve math problems?</h3>
+                  <span class="date">NeurIPS'24 Math-AI Workshop</span>
+              </div>
+              <ul>
+                  <li>Conducted a study on LLMs ability to use hints in mathematical problem-solving on the MATH dataset, benchmarking zero-shot, few-shot, chain-of-thought, and adversarial hinting against traditional prompting.</li>
+              </ul>
+              <div class="publication-links">
+                <a href="https://arxiv.org/abs/2410.05915" target="_blank">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  Arxiv
+                </a>
+                <a href="https://github.com/vlgiitr/LLM-Math" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    Code
+                </a>
+              </div>
+          </div>
+
+          <div class="publication-item">
+              <div class="flex-header">
+                  <h3>Adaptive Urban Planning</h3>
+                  <span class="date">AAAI'25 AI4UP Workshop</span>
+              </div>
+              <ul>
+                  <li>Developed a Multi-Agent urban planning framework using LLMs and Genetic Algorithms for optimization and regional customization, resulting in significant improvements in livability and accessibility.</li>
+              </ul>
+              <div class="publication-links">
+                <a href="https://arxiv.org/abs/2412.15349" target="_blank">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  Arxiv
+                </a>
+              </div>
+          </div>
+
+          <div class="publication-item">
+              <div class="flex-header">
+                  <h3>StegaVision: Enhancing Steganography with Attention Mechanism</h3>
+                  <span class="date">AAAI-25 Student abstract</span>
+              </div>
+              <ul>
+                  <li>Developed a novel image steganography model using neural network based approach, integrating attention mechanisms (channel and spatial attention) into an autoencoder architecture.</li>
+              </ul>
+              <div class="publication-links">
+                <a href="https://arxiv.org/abs/2411.05838" target="_blank">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  Arxiv
+                </a>
+                <a href="https://github.com/vlgiitr/StegaVision" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    Code
+                </a>
+              </div>
+          </div>
+      </section>
+
+      <section class="section" id="achievements">
+          <h2>Achievements</h2>
+          <ul>
+              <li><strong>11th / Top 15</strong> &mdash; Meta &times; Hugging Face &times; PyTorch OpenEnv Hackathon, India's largest AI hackathon (70K+ entries).</li>
+              <li><strong>Silver Medal</strong> &mdash; Inter IIT Tech Meet 14.0, ISRO Geospatial problem statement (<a href="https://github.com/PrathamSingla15/drishti" target="_blank">Drishti</a>).</li>
+              <li><strong>Winner</strong> &mdash; HiLabs AIQuest 2025 Hackathon, IIT Roorkee: data-quality analytics with SLM-based NL querying.</li>
+          </ul>
+      </section>
+
+      <section class="section" id="projects">
+          <h2>Relevant Projects</h2>
+
+          <div class="project-item">
+              <div class="flex-header">
+                  <h3>RosterIQ: Memory-Augmented Multi-Agent Platform</h3>
+                  <span class="date">VLG, IITR</span>
+              </div>
+              <ul>
+                  <li>Multi-agent orchestration (4 agents, 10 tools) with Pydantic-validated tool-calling and a three-layer memory architecture (session, episodic, semantic) for persistent reasoning over 60K+ records.</li>
+              </ul>
+              <div class="publication-links">
+                  <a href="https://github.com/PrathamSingla15/RosterIQ" target="_blank">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                      Code
+                  </a>
+              </div>
+          </div>
+
+          <div class="project-item">
+              <div class="flex-header">
+                  <h3>Voice Agent Autodialer</h3>
+                  <span class="date">VLG, IITR</span>
+              </div>
+              <ul>
+                  <li>Developed an AI-powered voice agent auto-dialer system that automates phone surveys by integrating Supabase, Atoms, and Google Sheets for intelligent calling, data collection, and analytics.</li>
+              </ul>
+              <div class="publication-links">
+                  <a href="https://github.com/PrathamSingla15/Voice-Agent-Autodialer" target="_blank">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                      Code
+                  </a>
+              </div>
+          </div>
+
+
+      </section>
+
+      <section class="section" id="extracurricular">
+          <h2>Extracurricular</h2>
+
+          <div class="experience-item">
+              <div class="flex-header">
+                  <h3>Secretary, Vision and Language Group, IIT Roorkee</h3>
+                  <span class="date">February 2024 – Present</span>
+              </div>
+              <p>Works on research projects and involved in the overall planning of the group, including organizing and moderating paper discussions, contributing to projects, helping develop an active Deep Learning community on the campus.</p>
+              <div class="publication-links">
+                  <a href="https://vlg.iitr.ac.in/" target="_blank">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                      Website
+                  </a>
+              </div>
+          </div>
+
+          <div class="experience-item">
+              <div class="flex-header">
+                  <h3>Project Head, ACM, IIT Roorkee</h3>
+                  <span class="date">March 2024 – Present</span>
+              </div>
+              <p>Contributed to skill development in computer science while gaining valuable experience in advancements within the competitive computing environment.</p>
+              <div class="publication-links">
+                  <a href="https://iitr.acm.org/#/" target="_blank">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                      Website
+                  </a>
+              </div>
+          </div>
+      </section>
+  </main>
 </body>
 </html>

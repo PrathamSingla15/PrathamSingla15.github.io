@@ -1,0 +1,9 @@
+# Local-only design variants — previewable via a local server, NOT deployed to the live site.
+# (Kept on disk so `python3 -m http.server` at the repo root still serves /editorial, /midnight, /swiss.)
+editorial/
+midnight/
+swiss/
+
+# scratch
+/tmp/
+*.log
